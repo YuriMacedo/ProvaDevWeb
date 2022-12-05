@@ -43,10 +43,10 @@ public class FileController {
     try {
       storageService.save(file);
 
-      message = "Uploaded the file successfully: " + file.getOriginalFilename();
+      message = "Upload realizado com sucesso: " + file.getOriginalFilename();
       model.addAttribute("message", message);
     } catch (Exception e) {
-      message = "Could not upload the file: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+      message = "Não foi possível realizar o upload do arquivo: " + file.getOriginalFilename() + ". Erro: " + e.getMessage();
       model.addAttribute("message", message);
     }
 
@@ -82,13 +82,13 @@ public class FileController {
       boolean existed = storageService.delete(filename);
 
       if (existed) {
-        redirectAttributes.addFlashAttribute("message", "Delete the file successfully: " + filename);
+        redirectAttributes.addFlashAttribute("message", "Arquivo deletado com sucesso: " + filename);
       } else {
-        redirectAttributes.addFlashAttribute("message", "The file does not exist!");
+        redirectAttributes.addFlashAttribute("message", "O arquivo não existe");
       }
     } catch (Exception e) {
       redirectAttributes.addFlashAttribute("message",
-          "Could not delete the file: " + filename + ". Error: " + e.getMessage());
+          "Não foi possível deletar o arquivo: " + filename + ". Erro: " + e.getMessage());
     }
 
     return "redirect:/files";

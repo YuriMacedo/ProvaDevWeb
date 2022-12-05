@@ -26,39 +26,35 @@
     <div class="collapse navbar-collapse" id="topNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/files/new">Upload</a>
+          <a class="nav-link" href="/files/new">Fazer upload</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/files">Files</a>
+          <a class="nav-link" href="/files">Listar arquivos</a>
         </li>
       </ul>
     </div>
   </nav>
 </header>
 
-  <div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
-    <h2 class="text-center">Lista de arquivos</h2>
+  <div class="container-fluid" style="max-width: 50%; margin: 0 auto;">
+    <h2 class="text-center">Arquivos</h2>
 
     <div th:if="${files.size() > 0}">
-      <table class="table table-hover">
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">Nome do arquivo</th>
-            <th scope="col">Link</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="file : ${files}">
-            <td>[[${file.name}]]</td>
-            <td><a th:href="@{${file.url}}">Download</a></td>
-            <td>
-              <a th:href="@{'/files/delete/' + ${file.name}}" th:fileName="${file.name}" id="btnDelete"
-                title="Delete this file" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="row row-cols-1 row-cols-md-2 g-4" th:if="${files.size() > 0}">
+          <div class="col mt-4" th:each="file : ${files}">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">[[${file.name}]]</h5>
+                <p class="card-text">
+                  <div class="d-flex justify-content-center">
+                    <a th:href="@{'/files/delete/' + ${file.name}}" th:fileName="${file.name}" id="btnDelete"
+                      title="Delete this file" class="fa-regular fa-trash-can icon-dark btn-delete fa-xl mx-4"></a>
+                      <a th:href="@{${file.url}}" class="fa fa-download fa-xl mx-4"></a>
+                  </div>
+                </p>
+              </div>
+            </div>
+          </div>
     </div>
 
     <div th:unless="${files.size() > 0}">
@@ -98,7 +94,7 @@
 
         fileName = link.attr("fileName");
         $("#yesBtn").attr("href", link.attr("href"));
-        $("#confirmText").html("Do you want to delete the File: \<strong\>" + fileName + "\<\/strong\>?");
+        $("#confirmText").html("Realmente deseja excluir o arquivo: \<strong\>" + fileName + "\<\/strong\>?");
         $("#confirmModal").modal();
       });
     });
